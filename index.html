@@ -16,6 +16,17 @@
     <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
     <![endif]-->
     <link href="https://fonts.googleapis.com/css?family=Roboto+Mono" rel="stylesheet">
+
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=UA-134250771-1"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
+
+        gtag('config', 'UA-134250771-1');
+    </script>
+
     <style>
         body {
             font-family: 'Roboto Mono', monospace;
@@ -34,8 +45,8 @@
 <div class="container-fluid">
     <div class="row">
         <div class="col-md-7" style="padding-right: 0">
-            <a href="https://www.github.com/codetendolkar" target="_blank">
-                <img class="circle" src="images/dp.JPG" style="float: left; margin-top: 15px; margin-right: 20px" width="50px" height="50px"  data-toggle="tooltip" title="Hi! I am Gaurav. I am a graduate student at OSU with focus on CS and Statistics/ML. I was a former intern at Apple and will be joining Microsoft soon. Contact me at grvtendolkar AT gmail DOT com. PS: This page is just a demo for a class project where we are trying to derive some theoretical guarantees on t-SNE performance (search MATH 8610, Short, Fat Matrices)" data-placement="bottom">
+            <a href="https://www.github.com/codetendolkar" target="_blank" id="dpLink">
+                <img class="circle" src="images/dp.JPG" id="dp" style="float: left; margin-top: 15px; margin-right: 20px" width="50px" height="50px"  data-toggle="tooltip" title="Hi! I am Gaurav. I am a graduate student at OSU with focus on CS and Statistics/ML. I was a former intern at Apple and will be joining Microsoft soon. Contact me at grvtendolkar AT gmail DOT com. PS: This page is just a demo for a class project where we are trying to derive some theoretical guarantees on t-SNE performance (search MATH 8610, Short, Fat Matrices)" data-placement="bottom">
             </a>
             <h1 style="">Visualise t-SNE</h1>
             <div id="animationContainer"></div>

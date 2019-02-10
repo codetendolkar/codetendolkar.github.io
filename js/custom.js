@@ -58,7 +58,9 @@ function autorun(Y, preplexity, num_iterations) {
     //Aliases
     var Application = PIXI.Application,
         Container = PIXI.Container,
-        Graphics = PIXI.Graphics;
+        Graphics = PIXI.Graphics,
+        Text = PIXI.Text,
+        TextStyle = PIXI.TextStyle;
 
     //Create a Pixi Application
     var app = new Application({
@@ -83,6 +85,7 @@ function autorun(Y, preplexity, num_iterations) {
 
     // Initialize points
     var embeddings;
+    var stepCounter;
 
     var initializeEmbeddings = function (Y) {
         numPoints = Y.length;
@@ -99,6 +102,17 @@ function autorun(Y, preplexity, num_iterations) {
             embeddings.addChild(circle)
         }
         app.stage.addChild(embeddings);
+
+        var style = new TextStyle({
+            fontFamily: "Arial",
+            fontSize: 12,
+            fill: "#ff6699"
+        });
+
+        stepCounter = new Text("Optimisation Step: 0", style);
+        stepCounter.y = canvasHeight - 30;
+        stepCounter.x = canvasWidth - 300;
+        app.stage.addChild(stepCounter);
     };
 
     var opt = {};
@@ -144,6 +158,7 @@ function autorun(Y, preplexity, num_iterations) {
         drawPMatrix(Q, "QMatrixCanvas");
         renderEmbeddings(Y);
         stepCount = stepCount+1;
+        stepCounter.text = "Optimisation Step: "+stepCount;
         if (stepCount>num_iterations){
             state = end;
         }
@@ -204,5 +219,6 @@ window.addEventListener("load",function() {
         $(this).hide();
         $('#enterCustomData').show();
     });
+
     document.getElementById("run").click();
 });
