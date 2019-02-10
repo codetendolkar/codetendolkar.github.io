@@ -20,13 +20,14 @@
 <div class="container-fluid">
     <div class="row">
         <div class="col-md-7">
+            <h1>Visualise t-SNE</h1>
             <div id="animationContainer"></div>
         </div>
         <div class="col-md-5">
             <div class="container-fluid">
-                <form id="controlForm">
+                <form id="controlForm" style="margin-bottom: 0">
                     <div class="row">
-                        <div class="col-md-6">
+                        <div class="col-md-6" style="padding-left: 0">
                             <div class="form-group">
                                 <label for="perplexity">Enter Perplexity</label>
                                 <input type="text" class="form-control" id="perplexity" aria-describedby="perplexityHelp" placeholder="Enter perplexity" value="20">
@@ -42,7 +43,7 @@
                         </div>
                     </div>
                     <div class="row">
-                        <div class="col-md-4">
+                        <div class="col-md-4" style="padding-left: 0">
                             <div class="form-group">
                                 <label for="perplexity">Number of Points</label>
                                 <input type="text" class="form-control" id="numPoints" aria-describedby="numPointsHelp" placeholder="Enter number of points" value="10">
@@ -51,20 +52,20 @@
                         </div>
                         <div class="col-md-4">
                             <div class="form-group">
-                                <label for="numIts">Number of Iterations</label>
+                                <label for="numIts">Num Iterations</label>
                                 <input type="text" class="form-control" id="numIts" aria-describedby="numItsHelp" placeholder="Enter number of iterations" value="1000">
                                 <small id="numItsHelp" class="form-text text-muted">500 is generally sufficient</small>
                             </div>
                         </div>
-                        <div class="col-md-4">
-                            <button type="submit" class="btn btn-primary">Submit</button>
+                        <div class="col-md-4" style="margin-top: 25px">
+                            <button type="submit" class="btn btn-primary">Run</button>
                         </div>
                     </div>
                 </form>
             </div>
-            <h3 style="margin-top: 0;padding-top: 0">Raw Data Projected to 2D</h3>
+            <h4 style="margin-top: 0;padding-top: 0">Raw Data Projected to 2D</h4>
             <canvas id="dataCanvas"></canvas>
-            <h3>P and Q probability matrices</h3>
+            <h4 style="margin-top: 0;padding-top: 0">P and Q probability matrices</h4>
             <canvas id="PMatrixCanvas"></canvas>
             <canvas id="QMatrixCanvas"></canvas>
         </div>
