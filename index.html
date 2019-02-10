@@ -33,7 +33,7 @@
 <body id="body">
 <div class="container-fluid">
     <div class="row">
-        <div class="col-md-7 col-xs-12" style="padding-right: 0">
+        <div class="col-md-7" style="padding-right: 0">
             <a href="https://www.github.com/codetendolkar" target="_blank">
                 <img class="circle" src="images/dp.JPG" style="float: left; margin-top: 15px; margin-right: 20px" width="50px" height="50px"  data-toggle="tooltip" title="Hi! I am Gaurav. I am a graduate student at OSU with focus on CS and Statistics/ML. I was a former intern at Apple and will be joining Microsoft soon. Contact me at grvtendolkar AT gmail DOT com. PS: This page is just a demo for a class project where we are trying to derive some theoretical guarantees on t-SNE performance (search MATH 8610, Short, Fat Matrices)" data-placement="bottom">
             </a>
@@ -41,11 +41,11 @@
             <div id="animationContainer"></div>
             <p>Credits: <a href="https://github.com/karpathy/tsnejs">karpathy/tsnejs</a></p>
         </div>
-        <div class="col-md-5 col-xs-10 col-xs-offset-1" style="padding: 0">
+        <div class="col-md-5" style="padding: 0">
             <div class="container-fluid" style="padding-left: 0">
                 <form id="controlForm" style="margin-bottom: 0; margin-top: 20px">
                     <div class="row">
-                        <div class="col-md-4 col-xs-10 col-xs-offset-1">
+                        <div class="col-md-4">
                             <div class="form-group">
                                 <label for="perplexity">Enter Perplexity</label>
                                 <input type="text" class="form-control" id="perplexity" aria-describedby="perplexityHelp" placeholder="Enter perplexity" value="20">
@@ -57,35 +57,35 @@
                                 <small id="numItsHelp" class="form-text text-muted">500 is sufficient</small>
                             </div>
                         </div>
-                        <div class="col-md-8 col-xs-10 col-xs-offset-1">
+                        <div class="col-md-8">
                             <h4 style="margin-top: 0;padding-top: 0">Raw Data Projected to 2D</h4>
                             <canvas id="dataCanvas"></canvas>
                         </div>
                     </div>
                     <div class="row">
-                        <div class="col-md-3 exampleData col-xs-10 col-xs-offset-1" style="display: none;">
+                        <div class="col-md-3 exampleData" style="display: none;">
                             <div class="form-group">
                                 <label for="perplexity">Num Points</label>
                                 <input type="text" class="form-control" id="numPoints" aria-describedby="numPointsHelp" placeholder="Enter number of points" value="100">
                                 <small id="numPointsHelp" class="form-text text-muted">Use about 100</small>
                             </div>
                         </div>
-                        <div class="col-md-4 exampleData col-xs-10 col-xs-offset-1" style="display: none;">
+                        <div class="col-md-4 exampleData" style="display: none;">
                             <div class="form-group">
                                 <label for="perplexity">Sphere Dimension</label>
                                 <input type="text" class="form-control" id="dimension" aria-describedby="dimensionHelp" placeholder="Enter dimension" value="3">
                                 <small id="dimensionHelp" class="form-text text-muted">Integer >= 1</small>
                             </div>
                         </div>
-                        <div class="col-md-7 customData col-xs-10 col-xs-offset-1">
+                        <div class="col-md-7 customData">
                             <div class="form-group">
                                 <label for="perplexity">Enter Points Array</label>
                                 <input type="text" class="form-control" id="points" aria-describedby="pointsHelp" placeholder="Enter Points Array" value="[[3.4840305052176754,1.9650779726801355],[2.262157208850914,3.2988853818288146],[-3.84625228631405,-1.0983366287363554],[1.2615352991794335,3.795856779295586],[-3.3549371227353513,-2.1781636537441904],[3.246215702734512,2.3371100982452404],[3.4461533123411905,2.030770136632859],[3.9309563412374,0.7399880021226511],[2.9865066489895593,2.6609731369446696],[-1.8768396494868735,3.532346660523849],[-3.951728109583731,-0.6195522156572372],[3.7524647921283165,-1.3852826368064348],[-3.929047724393823,0.7500559842009957],[-0.3901336375966964,3.9809290052468365],[3.9513307288748907,0.6220815630196944],[-1.804567668319519,3.569808892707823],[-3.018368929742327,2.624775991197375],[1.3876026645852835,3.751607501489971],[0.6873095151992382,3.9405082959329736],[1.4382611691962393,3.732479713164194],[-2.1116889895816393,3.397170824565594],[2.376404654437779,-3.217561330940944],[-1.8342988070526796,-3.5546234521317612],[3.9527138174945526,-0.613231992795256],[-1.0917455614002962,3.848128328052841],[1.7279969215487458,-3.6074958959253243],[-1.9427426360537754,3.4965341482758077],[-3.0805430182475977,2.5515200788404515],[3.9680944140723127,0.5042090052826417],[3.686875597221684,-1.5514342817571263],[-2.7904112944601382,2.8659387306342214],[3.2710035907357358,-2.30228918891479],[0.6135716475947561,-3.952661107819371],[-3.9817328309544404,-0.3818424582200595],[-3.377672640943042,-2.1427383252802614],[1.7686097947638952,3.5877596622217065],[1.8023029534200081,-3.5709528230002587],[-0.6651563436169098,3.944308182501233],[-3.8138231870240293,-1.206131293897095],[3.0582846390451497,-2.5781573005890235],[3.2066619940968875,-2.391091561528871],[-0.6360283785964803,-3.9491097606447876],[-3.268930475163277,-2.305231777619941],[-1.7669231351479593,-3.588590619516094],[1.1307475208168112,3.8368489733330184],[-2.739050960629711,2.9150642934716644],[-3.6091246325974624,1.7245925276360894],[-2.899655090544101,2.7553584804670486],[3.994106294724049,0.21705968406345622],[-1.77069445780929,-3.5867312607837607]]">
                                 <small id="pointsHelp" class="form-text text-muted">Array of form [[1,2],[2,1],[0,1],...]</small>
                             </div>
                         </div>
-                        <div class="col-md-1 col-xs-10 col-xs-offset-1" style="padding-left: 0; padding-top: 30px"><span>OR</span></div>
-                        <div class="col-md-4 col-xs-10 col-xs-offset-1" style="padding-left: 0; padding-top: 15px">
+                        <div class="col-md-1" style="padding-left: 0; padding-top: 30px"><span>OR</span></div>
+                        <div class="col-md-4" style="padding-left: 0; padding-top: 15px">
                             <button type="button" class="btn btn-primary" id="cancelButton">Use Hypersphere</button>
                             <button type="button" class="btn btn-primary" id="enterCustomData" style="display: none">Enter Data</button>
                         </div>
