@@ -24,33 +24,37 @@
             border-radius: 50%;
             /* width and height can be anything, as long as they're equal */
         }
+        .tooltip-inner {background-color: #ff6699; margin-left: 20px; font-family: 'Roboto Mono', monospace;}
+        .tooltip.bottom .tooltip-arrow { border-bottom-color: #ff6699; }
+        button {margin: 10px 0}
+
     </style>
 </head>
 <body>
 <div class="container-fluid">
     <div class="row">
-        <div class="col-md-8" style="padding-right: 0">
+        <div class="col-md-7" style="padding-right: 0">
             <a href="https://www.github.com/codetendolkar" target="_blank">
-                <img class="circle" src="images/dp.JPG" style="float: left; margin-top: 15px; margin-right: 20px" width="50px" height="50px">
+                <img class="circle" src="images/dp.JPG" style="float: left; margin-top: 15px; margin-right: 20px" width="50px" height="50px"  data-toggle="tooltip" title="Hi! I am Gaurav. I am a graduate student at OSU with focus on CS and Statistics/ML. I was a former intern at Apple and will be joining Microsoft soon. Contact me at grvtendolkar AT gmail DOT com. PS: This page is just a demo for a class project" data-placement="bottom">
             </a>
-            <h1 style="">Visualise t-SNE of Hypersphere</h1>
+            <h1 style="">Visualise t-SNE</h1>
             <div id="animationContainer"></div>
             <p>Credits: <a href="https://github.com/karpathy/tsnejs">karpathy/tsnejs</a></p>
         </div>
-        <div class="col-md-4" style="padding: 0">
-            <div class="container-fluid">
+        <div class="col-md-5" style="padding: 0">
+            <div class="container-fluid" style="padding-left: 0">
                 <form id="controlForm" style="margin-bottom: 0; margin-top: 20px">
                     <div class="row">
-                        <div class="col-md-4" style="padding-left: 0">
+                        <div class="col-md-4">
                             <div class="form-group">
                                 <label for="perplexity">Enter Perplexity</label>
                                 <input type="text" class="form-control" id="perplexity" aria-describedby="perplexityHelp" placeholder="Enter perplexity" value="20">
                                 <small id="perplexityHelp" class="form-text text-muted">Original paper claims values 5-50 work best</small>
                             </div>
                             <div class="form-group">
-                                <label for="perplexity">Dimension</label>
-                                <input type="text" class="form-control" id="dimension" aria-describedby="dimensionHelp" placeholder="Enter dimension" value="3">
-                                <small id="dimensionHelp" class="form-text text-muted">Integer greater than 1</small>
+                                <label for="numIts">Num Iterations</label>
+                                <input type="text" class="form-control" id="numIts" aria-describedby="numItsHelp" placeholder="Enter number of iterations" value="1000">
+                                <small id="numItsHelp" class="form-text text-muted">500 is sufficient</small>
                             </div>
                         </div>
                         <div class="col-md-8">
@@ -59,24 +63,34 @@
                         </div>
                     </div>
                     <div class="row">
-                        <div class="col-md-4" style="padding-left: 0">
+                        <div class="col-md-3 exampleData" style="display: none;">
                             <div class="form-group">
-                                <label for="perplexity">Number of Points</label>
+                                <label for="perplexity">Num Points</label>
                                 <input type="text" class="form-control" id="numPoints" aria-describedby="numPointsHelp" placeholder="Enter number of points" value="100">
-                                <small id="numPointsHelp" class="form-text text-muted">Values greater than 100 might make it slower</small>
+                                <small id="numPointsHelp" class="form-text text-muted">Use about 100</small>
                             </div>
                         </div>
-                        <div class="col-md-4">
+                        <div class="col-md-4 exampleData" style="display: none;">
                             <div class="form-group">
-                                <label for="numIts">Num Iterations</label>
-                                <input type="text" class="form-control" id="numIts" aria-describedby="numItsHelp" placeholder="Enter number of iterations" value="1000">
-                                <small id="numItsHelp" class="form-text text-muted">500 is generally sufficient</small>
+                                <label for="perplexity">Sphere Dimension</label>
+                                <input type="text" class="form-control" id="dimension" aria-describedby="dimensionHelp" placeholder="Enter dimension" value="3">
+                                <small id="dimensionHelp" class="form-text text-muted">Integer >= 1</small>
                             </div>
                         </div>
-                        <div class="col-md-4" style="margin-top: 25px">
-                            <button type="submit" class="btn btn-primary" id="run">Run</button>
+                        <div class="col-md-7 customData">
+                            <div class="form-group">
+                                <label for="perplexity">Enter Points Array</label>
+                                <input type="text" class="form-control" id="points" aria-describedby="pointsHelp" placeholder="Enter Points Array" value="[[1,0,0],[1,0,0],[0,0,0]]">
+                                <small id="pointsHelp" class="form-text text-muted">Array of form [[1,2],[2,1],[0,1],...]</small>
+                            </div>
+                        </div>
+                        <div class="col-md-1" style="padding-left: 0; padding-top: 30px"><span>OR</span></div>
+                        <div class="col-md-4" style="padding-left: 0; padding-top: 15px">
+                            <button type="button" class="btn btn-primary" id="cancelButton">Use Hypersphere</button>
+                            <button type="button" class="btn btn-primary" id="enterCustomData" style="display: none">Enter Data</button>
                         </div>
                     </div>
+                    <div style="padding-left: 0"><button type="submit" class="btn btn-primary" id="run" style="margin-top: 0; margin-bottom: 10px">Run t-SNE</button></div>
                 </form>
             </div>
             <h4 style="margin-top: 0;padding-top: 0">P and Q probability matrices</h4>
@@ -253,6 +267,7 @@
         }
     }
     window.addEventListener("load",function() {
+        var customDataSource = true;
         document.getElementById('controlForm').addEventListener("submit",function(e) {
             e.preventDefault(); // before the code
 
@@ -261,7 +276,14 @@
             let np = document.getElementById("numPoints").value;
             let numIts = document.getElementById("numIts").value;
 
-            let Y = generateHypersphere(dim, np);
+            var Y;
+            if (customDataSource){
+                Y = JSON.parse(document.getElementById("points").value);
+            } else {
+                Y = generateHypersphere(dim, np);
+            }
+
+            //let Y = generateHypersphere(dim, np);
 
             let numPoints = Y.length;
 
@@ -276,6 +298,21 @@
             autorun(Y, perp, numIts);
         });
 
+        $('[data-toggle="tooltip"]').tooltip();
+        $('#enterCustomData').click(function () {
+            customDataSource = true;
+            $('.customData').show();
+            $('.exampleData').hide();
+            $(this).hide();
+            $('#cancelButton').show();
+        });
+        $('#cancelButton').click(function () {
+            customDataSource = false;
+            $('.customData').hide();
+            $('.exampleData').show();
+            $(this).hide();
+            $('#enterCustomData').show();
+        });
         document.getElementById("run").click();
     });
 </script>
