@@ -20,16 +20,24 @@
         body {
             font-family: 'Roboto Mono', monospace;
         }
+        .circle {
+            border-radius: 50%;
+            /* width and height can be anything, as long as they're equal */
+        }
     </style>
 </head>
 <body>
 <div class="container-fluid">
     <div class="row">
-        <div class="col-md-7">
-            <h1>Visualise t-SNE</h1>
+        <div class="col-md-8" style="padding-right: 0">
+            <a href="https://www.github.com/codetendolkar" target="_blank">
+                <img class="circle" src="images/dp.JPG" style="float: left; margin-top: 15px; margin-right: 20px" width="50px" height="50px">
+            </a>
+            <h1 style="">Visualise t-SNE of Hypersphere</h1>
             <div id="animationContainer"></div>
+            <p>Credits: <a href="https://github.com/karpathy/tsnejs">karpathy/tsnejs</a></p>
         </div>
-        <div class="col-md-5">
+        <div class="col-md-4" style="padding: 0">
             <div class="container-fluid">
                 <form id="controlForm" style="margin-bottom: 0; margin-top: 20px">
                     <div class="row">
@@ -66,7 +74,7 @@
                             </div>
                         </div>
                         <div class="col-md-4" style="margin-top: 25px">
-                            <button type="submit" class="btn btn-primary">Run</button>
+                            <button type="submit" class="btn btn-primary" id="run">Run</button>
                         </div>
                     </div>
                 </form>
@@ -135,8 +143,6 @@
         for (var i = 0; i < N; i++) {
             for (var j = 0; j < N; j++) {
                 ctx.fillStyle = 'rgb(' + Math.floor(255*(P[i*N+j]-min)/(max-min)) + ', 66, 99)';
-
-
                 ctx.fillRect(j * canvas.width/N, i * canvas.width/N, canvas.width/N, canvas.width/N);
                 ctx.fill();
             }
@@ -154,7 +160,8 @@
         let app = new Application({
                 antialias: true,
                 transparent: true,
-                resolution: 1
+                resolution: 1,
+                height: 500
             }
         );
 
@@ -268,6 +275,8 @@
             }
             autorun(Y, perp, numIts);
         });
+
+        document.getElementById("run").click();
     });
 </script>
 </body>
