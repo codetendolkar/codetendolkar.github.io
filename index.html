@@ -99,7 +99,9 @@
         </div>
     </div>
 </div>
-
+<script>
+    if (/mobile/i.test(navigator.userAgent)) {document.getElementById("body").innerHTML="<div style='margin: 50px 20px'>Mobile version not available at this moment for this app :(</div><div style='margin: 50px 20px'>This page is a demo for a class project where we are trying to derive some theoretical guarantees on t-SNE performance (search MATH 8610, Short, Fat Matrices)</div>"}
+</script>
 
 <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
@@ -107,9 +109,6 @@
 <script src="vendor/bootstrap.min.js"></script>
 <script src="vendor/tsne.js"></script>
 <script src="vendor/pixi.min.js"></script>
-<script>
-    if (/mobile/i.test(navigator.userAgent)) {document.getElementById("body").innerHTML="<div style='margin: 50px 20px'>Mobile version not available at this moment for this app :(</div><div style='margin: 50px 20px'>This page is a demo for a class project where we are trying to derive some theoretical guarantees on t-SNE performance (search MATH 8610, Short, Fat Matrices)</div>"}
-</script>
 <script src="js/custom.min.js"></script>
 </body>
 </html>
