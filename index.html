@@ -15,6 +15,12 @@
     <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
     <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
     <![endif]-->
+    <link href="https://fonts.googleapis.com/css?family=Open+Sans+Condensed:300" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Open Sans Condensed', sans-serif;
+        }
+    </style>
 </head>
 <body>
 <div class="container-fluid">
@@ -25,28 +31,30 @@
         </div>
         <div class="col-md-5">
             <div class="container-fluid">
-                <form id="controlForm" style="margin-bottom: 0">
+                <form id="controlForm" style="margin-bottom: 0; margin-top: 20px">
                     <div class="row">
-                        <div class="col-md-6" style="padding-left: 0">
+                        <div class="col-md-4" style="padding-left: 0">
                             <div class="form-group">
                                 <label for="perplexity">Enter Perplexity</label>
                                 <input type="text" class="form-control" id="perplexity" aria-describedby="perplexityHelp" placeholder="Enter perplexity" value="20">
                                 <small id="perplexityHelp" class="form-text text-muted">Original paper claims values 5-50 work best</small>
                             </div>
-                        </div>
-                        <div class="col-md-6">
                             <div class="form-group">
                                 <label for="perplexity">Dimension</label>
                                 <input type="text" class="form-control" id="dimension" aria-describedby="dimensionHelp" placeholder="Enter dimension" value="3">
                                 <small id="dimensionHelp" class="form-text text-muted">Integer greater than 1</small>
                             </div>
                         </div>
+                        <div class="col-md-8">
+                            <h4 style="margin-top: 0;padding-top: 0">Raw Data Projected to 2D</h4>
+                            <canvas id="dataCanvas"></canvas>
+                        </div>
                     </div>
                     <div class="row">
                         <div class="col-md-4" style="padding-left: 0">
                             <div class="form-group">
                                 <label for="perplexity">Number of Points</label>
-                                <input type="text" class="form-control" id="numPoints" aria-describedby="numPointsHelp" placeholder="Enter number of points" value="10">
+                                <input type="text" class="form-control" id="numPoints" aria-describedby="numPointsHelp" placeholder="Enter number of points" value="100">
                                 <small id="numPointsHelp" class="form-text text-muted">Values greater than 100 might make it slower</small>
                             </div>
                         </div>
@@ -63,8 +71,6 @@
                     </div>
                 </form>
             </div>
-            <h4 style="margin-top: 0;padding-top: 0">Raw Data Projected to 2D</h4>
-            <canvas id="dataCanvas"></canvas>
             <h4 style="margin-top: 0;padding-top: 0">P and Q probability matrices</h4>
             <canvas id="PMatrixCanvas"></canvas>
             <canvas id="QMatrixCanvas"></canvas>
@@ -103,6 +109,16 @@
         return points;
     }
 
+    function pastelColors(){
+        let r = (Math.round(Math.random()* 127) + 127).toString(16);
+        r = r.length===1 ? "0"+r : r;
+        let g = (Math.round(Math.random()* 127) + 127).toString(16);
+        g = g.length===1 ? "0"+g : g;
+        let b = (Math.round(Math.random()* 127) + 127).toString(16);
+        b = b.length===1 ? "0"+b : b;
+        return "0x" + r + g + b;
+    }
+
     function drawPMatrix(P, idx) {
         N = Math.floor(Math.sqrt(P.length));
         let min = Math.min.apply(Math, P);
@@ -118,11 +134,8 @@
         ctx.clearRect(0, 0, canvas.width, canvas.height);
         for (var i = 0; i < N; i++) {
             for (var j = 0; j < N; j++) {
-                if (idx==="PMatrixCanvas"){
-                    ctx.fillStyle = 'rgb(' + Math.floor(255*(P[i*N+j]-min)/(max-min)) + ', 0, 0)';
-                } else {
-                    ctx.fillStyle = 'rgb(0, ' + Math.floor(255*(P[i*N+j]-min)/(max-min)) + ', 0)';
-                }
+                ctx.fillStyle = 'rgb(' + Math.floor(255*(P[i*N+j]-min)/(max-min)) + ', 66, 99)';
+
 
                 ctx.fillRect(j * canvas.width/N, i * canvas.width/N, canvas.width/N, canvas.width/N);
                 ctx.fill();
@@ -166,8 +179,10 @@
             embeddings.position.set(canvasWidth/2,canvasHeight/2);
             for(var i = 0; i < numPoints; i++) {
                 let circle = new Graphics();
-                var hue = Math.random()*0xFFFFFF<<0;
+                //var hue = Math.random()*0xFFFFFF<<0;
+                let hue = pastelColors();
                 circle.beginFill(hue);
+                circle.lineStyle(1, 0xFF00FF, 1);
                 circle.drawCircle(0, 0, embeddingSize);
                 circle.endFill();
                 embeddings.addChild(circle)
@@ -192,8 +207,8 @@
         var renderEmbeddings = function (Y) {
             numPoints = Y.length;
             for(var i = 0; i < numPoints; i++) {
-                embeddings.children[i].x = Y[i][0]*10;
-                embeddings.children[i].y = Y[i][1]*10;
+                embeddings.children[i].x = Y[i][0]*15;
+                embeddings.children[i].y = Y[i][1]*15;
             }
         };
 
@@ -247,8 +262,9 @@
             let scale = Math.min(canvas.width, canvas.height)/10;
             var ctx = canvas.getContext("2d");
             ctx.clearRect(0, 0, canvas.width, canvas.height);
+            ctx.fillStyle = "rgb(0,66,99)";
             for(var i = 0; i < numPoints; i++) {
-                ctx.fillRect(Y[i][0]*scale+canvas.width/2, Y[i][1]*scale+canvas.height/2, 2, 2);
+                ctx.fillRect(Y[i][0]*scale+canvas.width/2, Y[i][1]*scale+canvas.height/2, 3, 3);
             }
             autorun(Y, perp, numIts);
         });
