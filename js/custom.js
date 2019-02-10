@@ -220,5 +220,10 @@ window.addEventListener("load",function() {
         $('#enterCustomData').show();
     });
 
+    $('#dp').tooltip({trigger:'manual'}).tooltip('show');
+    setTimeout(function () {
+        $('#dp').tooltip().tooltip('hide');
+    }, 1000);
+
     document.getElementById("run").click();
 });
