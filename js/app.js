@@ -39,7 +39,7 @@ function startRecording() {
     console.log("recordButton clicked");
     console.log(alarmAfter.value)
     const parsed = parseInt(alarmAfter.value, 10);
-    if (!isNaN(parsed) & parsed > 0) {
+    if (alarmAfter.value==="" || (!isNaN(parsed) & parsed > 0)) {
         alertAfter = parsed;
     } else {
         alert("Enter positive integer for alert after")
