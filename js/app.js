@@ -18,7 +18,7 @@ stopButton.disabled = true;
 recordButton.addEventListener("click", startRecording);
 stopButton.addEventListener("click", stopRecording);
 
-var alarmAudio = new Audio('alarm.wav');
+var alarmAudio = new Audio();
 alarmAudio.addEventListener('ended', function(){
     this.currentTime = 0;
     this.play();
@@ -41,6 +41,9 @@ function startRecording() {
     const parsed = parseInt(alarmAfter.value, 10);
     if (alarmAfter.value==="" || (!isNaN(parsed) & parsed > 0)) {
         alertAfter = parsed;
+        alarmAudio.play(); //for ios
+        alarmAudio.pause();
+        alarmAudio.src = 'alarm.wav';        
     } else {
         alert("Enter positive integer for alert after")
         return;
