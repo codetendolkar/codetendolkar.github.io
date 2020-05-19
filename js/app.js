@@ -37,14 +37,15 @@ var alertAfter = Infinity;
 
 function startRecording() {
     console.log("recordButton clicked");
-    alarmAfter.disabled = true;
     console.log(alarmAfter.value)
     const parsed = parseInt(alarmAfter.value, 10);
-    if (!isNaN(parsed)) {
+    if (!isNaN(parsed) & parsed > 0) {
         alertAfter = parsed;
     } else {
         alert("Enter positive integer for alert after")
+        return;
     }
+    alarmAfter.disabled = true;
 
 	/*
 		Simple constraints object, for more advanced audio features see
