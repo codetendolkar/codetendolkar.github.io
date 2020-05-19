@@ -42,6 +42,8 @@ function startRecording() {
     const parsed = parseInt(alarmAfter.value, 10);
     if (!isNaN(parsed)) {
         alertAfter = parsed;
+    } else {
+        alert("Enter positive integer for alert after")
     }
 
 	/*
@@ -106,7 +108,7 @@ function startRecording() {
             "callback": features => {
                 console.log(features, numWhistles, isWhistling);
                 if (features.zcr > 500 & features.rms> 0.05){
-                    if (!isWhistling & Date.now() - whistlingStartedAt > 1000 ) {
+                    if (!isWhistling & Date.now() - whistlingStartedAt > 5000 ) {
                         whistlingStartedAt = Date.now();
                         numWhistles += 1;
                         document.getElementById("numWhistles").innerHTML = numWhistles;
